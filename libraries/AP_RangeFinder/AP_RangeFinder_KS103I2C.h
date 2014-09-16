@@ -6,7 +6,9 @@
 #include "RangeFinder.h"
 #include "RangeFinder_Backend.h"
 
-#define AP_RANGE_FINDER_KS103I2C_DEFAULT_ADDR (0xd6)
+#define AP_RANGE_FINDER_KS103I2C_DEFAULT_ADDR (0xd6 >> 1)	//KS103 Address
+
+#define AP_RANGE_FINDER_KS103I2C_COMMAND_REG 0x02	//command register
 
 #define AP_RANGE_FINDER_KS103I2C_COMMAND_TAKE_RANGE 0xba	//0-11m, return mm, max time 68ms
 
