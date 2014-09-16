@@ -830,6 +830,9 @@ void AP_Param::set_object_value(const void *object_pointer,
     for (uint8_t i=0;
          (type=PGM_UINT8(&group_info[i].type)) != AP_PARAM_NONE;
          i++) {
+
+        hal.console->printf_P(PSTR("strcmp result %s \n"), group_info[i].name);
+
         if (strcmp(name, group_info[i].name) == 0 && type <= AP_PARAM_FLOAT) {
             void *ptr = (void *)(base + PGM_UINT16(&group_info[i].offset));
             set_value((enum ap_var_type)type, ptr, value);
