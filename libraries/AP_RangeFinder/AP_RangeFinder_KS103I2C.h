@@ -27,7 +27,7 @@ public:
 private:
     // start a reading
     static bool start_reading(void);
-    static bool get_reading(uint16_t &reading_mm);
+    static bool get_reading(uint16_t &reading_cm);
 };
 
 #endif	//__AP_RANGEFINDER_KS103I2C_H__

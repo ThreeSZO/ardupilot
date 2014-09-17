@@ -40,8 +40,8 @@ bool AP_RangeFinder_KS103I2C::detect(RangeFinder &_ranger, uint8_t instance)
    }
 
    hal.scheduler->delay(50);
-   uint16_t reading_mm;
-   return get_reading(reading_mm);
+   uint16_t reading_cm;
+   return get_reading(reading_cm);
 }
 
 bool AP_RangeFinder_KS103I2C::start_reading()
@@ -70,9 +70,10 @@ bool AP_RangeFinder_KS103I2C::start_reading()
    return true;
 }
 
-bool AP_RangeFinder_KS103I2C::get_reading(uint16_t &reading_mm)
+bool AP_RangeFinder_KS103I2C::get_reading(uint16_t &reading_cm)
 {
    uint8_t buff[2];
+   uint16_t reading_mm;
 
    AP_HAL::Semaphore* i2c_sem = hal.i2c->get_semaphore();
 
@@ -89,6 +90,7 @@ bool AP_RangeFinder_KS103I2C::get_reading(uint16_t &reading_mm)
    i2c_sem->give();
 
    reading_mm = ((uint16_t)buff[0]) << 8 | buff[1];
+   reading_cm = reading_mm / 10;
 
    start_reading();
 
