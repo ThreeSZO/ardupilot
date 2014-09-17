@@ -1,5 +1,6 @@
 /*
  *  RangeFinder test code
+ *	author : 3601
  */
  
 #include <AP_RangeFinder.h>
@@ -40,12 +41,10 @@ static RangeFinder sonar;
 void setup()
 {
     // print welcome message
-    hal.console->println("Range Finder library test");
+    hal.console->println("Range Finder KS103 library test");
 
-    // setup for analog pin 13
-    AP_Param::set_object_value(&sonar, sonar.var_info, "_TYPE", RangeFinder::RangeFinder_TYPE_ANALOG);
-    AP_Param::set_object_value(&sonar, sonar.var_info, "_PIN", 13);
-    AP_Param::set_object_value(&sonar, sonar.var_info, "_SCALING", 3.10);
+    // setup for I2C KS103
+    AP_Param::set_object_value(&sonar, sonar.var_info, "_TYPE", RangeFinder::RangeFinder_TYPE_KS103);
 
     // initialise sensor, delaying to make debug easier
     hal.scheduler->delay(2000);
