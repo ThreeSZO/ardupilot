@@ -57,10 +57,10 @@ bool AP_RangeFinder_KS103I2C::start_reading()
     uint8_t tosend[1] =
         { AP_RANGE_FINDER_KS103I2C_COMMAND_TAKE_RANGE };
 
-   if(hal.i2c->writeRegister(AP_RANGE_FINDER_KS103I2C_DEFAULT_ADDR,
+   if(hal.i2c->writeRegistersWithDelay(AP_RANGE_FINDER_KS103I2C_DEFAULT_ADDR,
                               AP_RANGE_FINDER_KS103I2C_COMMAND_REG,
-                              AP_RANGE_FINDER_KS103I2C_COMMAND_TAKE_RANGE) != 0)
-   {
+                              1,
+                              tosend) != 0) {
       i2c_sem->give();
       return false;
    }
@@ -80,8 +80,7 @@ bool AP_RangeFinder_KS103I2C::get_reading(uint16_t &reading_mm)
     if (i2c_sem == NULL || !i2c_sem->take(1)) {
         return false;
     }
-
-   if (hal.i2c->readRegisters(AP_RANGE_FINDER_KS103I2C_DEFAULT_ADDR,
+   if (hal.i2c->readRegistersWithDelay(AP_RANGE_FINDER_KS103I2C_DEFAULT_ADDR,
                               AP_RANGE_FINDER_KS103I2C_COMMAND_REG, 2, &buff[0]) != 0) {
       i2c_sem->give();
       return false;

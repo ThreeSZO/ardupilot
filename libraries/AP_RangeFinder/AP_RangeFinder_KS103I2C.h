@@ -10,7 +10,7 @@
 
 #define AP_RANGE_FINDER_KS103I2C_COMMAND_REG 0x02	//command register
 
-#define AP_RANGE_FINDER_KS103I2C_COMMAND_TAKE_RANGE 0xba	//0-11m, return mm, max time 68ms
+#define AP_RANGE_FINDER_KS103I2C_COMMAND_TAKE_RANGE 0xb8	//0-11m, return mm, max time 68ms
 
 class AP_RangeFinder_KS103I2C : public AP_RangeFinder_Backend
 {

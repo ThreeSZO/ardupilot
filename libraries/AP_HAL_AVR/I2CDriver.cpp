@@ -139,6 +139,32 @@ error:
     return stat;
 }
 
+uint8_t AVRI2CDriver::writeRegistersWithDelay(uint8_t addr, uint8_t reg,
+                                    uint8_t len, uint8_t* data){
+    uint8_t stat = _start();
+    if (stat) goto error;
+    stat = _sendAddress(SLA_W(addr));
+    if (stat) goto error;
+    hal.scheduler->delay(1);
+    stat = _sendByte(reg);
+    if (stat) goto error;
+    hal.scheduler->delay(1);
+    for (uint8_t i = 0; i < len; i++)
+    {
+        stat = _sendByte(data[i]);
+        if (stat) goto error;
+        hal.scheduler->delay(1);
+    }
+    stat = _stop();
+    if (stat) goto error;
+    return stat;
+error:
+    if (!_ignore_errors) {
+        _lockup_count++;
+    }
+    return stat;
+}
+
 uint8_t AVRI2CDriver::writeRegister(uint8_t addr, uint8_t reg, uint8_t val) {
         /* Sometimes avr-gcc fails at dereferencing a uint8_t arg. */
         uint8_t data[1];
@@ -200,6 +226,45 @@ uint8_t AVRI2CDriver::readRegisters(uint8_t addr, uint8_t reg,
             if (stat != MR_DATA_ACK) goto error;
         }
         data[i] = TWDR;
+    }
+    stat = _stop();
+    if (stat) goto error;
+    return stat;
+error:
+    _lockup_count++;
+    return stat;
+}
+
+uint8_t AVRI2CDriver::readRegistersWithDelay(uint8_t addr, uint8_t reg,
+                                    uint8_t len, uint8_t* data){
+    uint8_t stat;
+    if ( len == 0)
+        len = 1;
+    uint8_t nackposition = len - 1;
+    stat = 0;
+    stat = _start();
+    if(stat) goto error;
+    stat = _sendAddress(SLA_W(addr));
+    if(stat) goto error;
+    hal.scheduler->delay(1);
+    stat = _sendByte(reg);
+    if(stat) goto error;
+    hal.scheduler->delay(1);
+    stat = _start();
+    if(stat) goto error;
+    stat = _sendAddress(SLA_R(addr));
+    if(stat) goto error;
+    hal.scheduler->delay(1);
+    for(uint8_t i = 0; i < len ; i++) {
+        if ( i == nackposition ) {
+            stat = _receiveByte(false);
+            if (stat != MR_DATA_NACK) goto error;
+        } else {
+            stat = _receiveByte(true);
+            if (stat != MR_DATA_ACK) goto error;
+        }
+        data[i] = TWDR;
+        hal.scheduler->delay(1);
     }
     stat = _stop();
     if (stat) goto error;

@@ -20,6 +20,9 @@ public:
     /* writeRegisters: write bytes to contigious registers */
     virtual uint8_t writeRegisters(uint8_t addr, uint8_t reg,
                                    uint8_t len, uint8_t* data) = 0;
+    /* writeRegistersWithDelay: write bytes to contigious registers */
+    virtual uint8_t writeRegistersWithDelay(uint8_t addr, uint8_t reg,
+                                   uint8_t len, uint8_t* data) = 0;
 
     /* read: for i2c devices which do not obey register conventions */
     virtual uint8_t read(uint8_t addr, uint8_t len, uint8_t* data) = 0;
@@ -30,6 +33,10 @@ public:
     /* readRegisters: read contigious device registers - writes the first 
      * register, then reads back multiple bytes */
     virtual uint8_t readRegisters(uint8_t addr, uint8_t reg,
+                                  uint8_t len, uint8_t* data) = 0;
+    /* readRegistersWithDelay: read contigious device registers - writes the first 
+     * register, then reads back multiple bytes */
+    virtual uint8_t readRegistersWithDelay(uint8_t addr, uint8_t reg,
                                   uint8_t len, uint8_t* data) = 0;
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_LINUX
