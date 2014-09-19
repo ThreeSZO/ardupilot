@@ -82,3 +82,6 @@ ArduCopter/Visual Micro/.ArduCopter.vsarduino.h
 *.vcxproj
 *.sdf
 *.opensdf
+*.suo
+ArduCopter/Visual Micro/Configuration.Debug.vmps.xml
+ArduCopter/Visual Micro/Compile.vmps.xml
