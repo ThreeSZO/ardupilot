@@ -77,3 +77,11 @@ status.txt
 tags
 test.ArduCopter/*
 Thumbs.db
+ArduCopter/Visual Micro/Configuration.Debug.vmps.xml
+ArduCopter/Visual Micro/Compile.vmps.xml
+ArduCopter/Visual Micro/.ArduCopter.vsarduino.h
+ArduCopter/ArduCopter.vcxproj.filters
+ArduCopter/ArduCopter.vcxproj
+ArduCopter/ArduCopter.v12.suo
+ArduCopter/ArduCopter.sln
+ArduCopter/ArduCopter.sdf
