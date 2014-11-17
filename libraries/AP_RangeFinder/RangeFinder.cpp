@@ -26,7 +26,7 @@ const AP_Param::GroupInfo RangeFinder::var_info[] PROGMEM = {
     // @Param: _TYPE
     // @DisplayName: Rangefinder type
     // @Description: What type of rangefinder device that is connected
-    // @Values: 0:None,1:Analog,2:MaxbotixI2C,3:PulsedLightI2C,4:PX4,5:KS103
+    // @Values: 0:None,1:Analog,2:APM2-MaxbotixI2C,3:APM2-PulsedLightI2C,4:PX4,5:KS103
     AP_GROUPINFO("_TYPE",    0, RangeFinder, _type[0], 0),
 
     // @Param: _PIN
@@ -92,7 +92,7 @@ const AP_Param::GroupInfo RangeFinder::var_info[] PROGMEM = {
     // @Param: 2_TYPE
     // @DisplayName: Second Rangefinder type
     // @Description: What type of rangefinder device that is connected
-    // @Values: 0:None,1:Analog,2:MaxbotixI2C,3:PulsedLightI2C,4:PX4,5:KS103
+    // @Values: 0:None,1:Analog,2:APM2-MaxbotixI2C,3:APM2-PulsedLightI2C,4:PX4,5:KS103
     AP_GROUPINFO("2_TYPE",    12, RangeFinder, _type[1], 0),
 
     // @Param: 2_PIN
